@@ -39,14 +39,7 @@ export default eventHandler(async (event) => {
                   url: link.url,
                   comment: link.comment,
                 })
-                await KV.put(key.name, JSON.stringify(link), {
-                  expiration: metadata?.expiration,
-                  metadata: {
-                    ...metadata,
-                    url: link.url,
-                    comment: link.comment,
-                  },
-                })
+                // Do not rewrite metadata with large fields (e.g., url/comment) to avoid KV metadata size limits
               }
             }
           }
